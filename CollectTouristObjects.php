@@ -1,6 +1,6 @@
 <?php
 
-require 'config.php';
+require 'CIG_Importer.php';
 
 class CollectTouristObjects {
   private function get_category_mappings() {
@@ -161,12 +161,12 @@ class CollectTouristObjects {
   }
 
   public function searchTouristObjects($request) {
-    global $config;
     $sc = $request->searchCondition;
     $restrictions = $this->decode_restrictions($sc);
     $language = $sc->language;
 
-    $xml = file_get_contents($config['CIG_Importer']['name'].'.xml');
+    $importer = new CIG_Importer();
+    $xml = $importer->get_xml();
     $happenings = new SimpleXMLElement($xml);
 
     $response = new \stdClass;
@@ -214,7 +214,7 @@ class CollectTouristObjects {
 
       $attributes = array();
       $attributes['A001'] = $happening->name;
-      $attributes['A004'] = $happening->description;
+      $attributes['A004'] = '<p>' . nl2br($happening->description) . '</p>';
 
       $attributes['A009'] = strtoupper($happening->venue->venueVoivodeship);
       $attributes['A010'] = $happening->venue->venueDistrict;

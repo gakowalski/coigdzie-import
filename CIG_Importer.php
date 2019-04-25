@@ -10,9 +10,18 @@ class CIG_Importer {
     }
   }
 
+  function get_filename($date = null) {
+    if ($date !== null) {
+      $filename = $date . '_' . $this->config['name'] . '.xml';
+    } else {
+      $filename = $this->config['name'] . '.xml';
+    }
+    return $filename;
+  }
+
   function import($date = null) {
-    $url = $this->config['base_url'] . $this->config['name'] . '.xml';
-    $filename = $this->config['name'] . '.xml';
+    $filename = $this->get_filename($date);
+    $url = $this->config['base_url'] . $filename;
 
     $headers = array(
       'Authorization: Basic ' . base64_encode($this->config['login'] . ':' . $this->config['pass']),
@@ -29,5 +38,15 @@ class CIG_Importer {
     curl_setopt_array($ch, $options);
     curl_exec($ch);
     curl_close($ch);
+  }
+
+  function get_xml() {
+    $filename = $this->get_filename();
+
+    if (file_exists($filename) === false || (date("Ymd") > date("Ymd", filemtime($filename)))) {
+      $this->import();
+    }
+
+    return file_get_contents($filename);
   }
 }
