@@ -179,6 +179,9 @@ class CollectTouristObjects {
     $category_mappings = $this->get_category_mappings();
 
     foreach ($happenings as $happening) {
+      if (in_array($happening['happeningId'], $restrictions['ids'] === false) {
+        continue;
+      }
       if ($restrictions['date_from'] !== null && strtotime($happening['modified']) < strtotime($restrictions['date_from'])) {
         continue;
       }
