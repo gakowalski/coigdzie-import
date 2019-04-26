@@ -189,7 +189,7 @@ class CollectTouristObjects {
       $touristObject = new \stdClass;
       $touristObject->touristObjectIdentifierRIT = new \stdClass;
       $touristObject->touristObjectIdentifierRIT->identifierRIT = $happening['happeningId'];
-      $touristObject->touristObjectIdentifierRIT->lastModified = $happening['modified'];
+      $touristObject->touristObjectIdentifierRIT->lastModified = date("Y-d-m", strtotime($happening['modified']));
 
       $touristObject->categories = array();
 
