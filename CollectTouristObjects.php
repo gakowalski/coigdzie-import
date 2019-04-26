@@ -179,10 +179,10 @@ class CollectTouristObjects {
     $category_mappings = $this->get_category_mappings();
 
     foreach ($happenings as $happening) {
-      if ($restrictions['date_from'] !== null && strtotime($happening->startDate) < strtotime($restrictions['date_from'])) {
+      if ($restrictions['date_from'] !== null && strtotime($happening['modified']) < strtotime($restrictions['date_from'])) {
         continue;
       }
-      if ($restrictions['date_to'] !== null && strtotime($happening->endDate) > strtotime($restrictions['date_to'])) {
+      if ($restrictions['date_to'] !== null && strtotime($happening['modified']) > strtotime($restrictions['date_to'])) {
         continue;
       }
 
