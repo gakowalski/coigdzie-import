@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.pot.gov.pl/rit/integration/GetTouristObjectLanguages" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://www.pot.gov.pl/rit/integration/commonElements/RITException" name="GetTouristObjectLanguages" targetNamespace="http://www.pot.gov.pl/rit/integration/GetTouristObjectLanguages">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.pot.gov.pl/rit/integration/commonElements/TouristObject" xmlns:ns1="http://www.pot.gov.pl/rit/integration/MetadataOfRIT" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.pot.gov.pl/rit/integration/commonElements/TouristObject">
+  <xs:import namespace="http://www.pot.gov.pl/rit/integration/MetadataOfRIT"/>
+  <xs:element name="touristObject" type="tns:TouristObject"/>
+  <xs:complexType name="AttrVals">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="value" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="language" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="TouristObjectBinaryDocuments">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="documentURL" nillable="true" type="tns:DocumentURL"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="documentFile" nillable="true" type="tns:DocumentFile"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="documentBase64" nillable="true" type="tns:DocumentBase64"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentURL">
+    <xs:sequence>
+      <xs:element name="fileName" type="xs:string"/>
+      <xs:element name="fileType" type="xs:string"/>
+      <xs:element name="URL" type="xs:string"/>
+      <xs:element minOccurs="0" name="certificate" type="tns:Certificate"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Certificate">
+    <xs:sequence>
+      <xs:element name="validTo" type="xs:date"/>
+      <xs:element name="distributionChannelOwner" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentFile">
+    <xs:sequence>
+      <xs:element name="fileName" type="xs:string"/>
+      <xs:element name="fileType" type="xs:string"/>
+      <xs:element name="relativePathToDirectory" type="xs:string"/>
+      <xs:element minOccurs="0" name="certificate" type="tns:Certificate"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentBase64">
+    <xs:sequence>
+      <xs:element name="fileName" type="xs:string"/>
+      <xs:element name="fileType" type="xs:string"/>
+      <xs:element name="encoded" type="xs:string"/>
+      <xs:element minOccurs="0" name="certificate" type="tns:Certificate"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TouristObjectIdentifierSZ">
+    <xs:sequence>
+      <xs:element name="identifierType" type="tns:IdentifierTypeEnum"/>
+      <xs:element minOccurs="0" name="distributionChannel" type="tns:DistributionChannel"/>
+      <xs:element minOccurs="0" name="artificialIdentifier" type="xs:string"/>
+      <xs:element minOccurs="0" name="databaseTable" type="xs:string"/>
+      <xs:element minOccurs="0" name="concatenationOfField" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastModified" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DistributionChannel">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="code" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TouristObjectCategories">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="category" type="ns1:RitCategory"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TouristObjectAttribute">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attrVals" nillable="true" type="tns:AttrVals"/>
+      <xs:element minOccurs="0" name="complex" type="tns:CompAttrVals"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parentCategoryCode" nillable="true" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="code" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="CompAttrVals">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="compAttrVals" type="tns:ComplexAttribute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ComplexAttribute">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attrVals" nillable="true" type="tns:AttrVals"/>
+    </xs:sequence>
+    <xs:attribute name="code" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="TouristObjectIdentifierRIT">
+    <xs:sequence>
+      <xs:element name="identifierRIT" type="xs:int"/>
+      <xs:element minOccurs="0" name="lastModified" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TouristObjectAttributes">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="attribute" type="tns:TouristObjectAttribute"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TouristObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="touristObjectIdentifierRIT" type="tns:TouristObjectIdentifierRIT"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="touristObjectIdentifierSZ" nillable="true" type="tns:TouristObjectIdentifierSZ"/>
+      <xs:element name="categories" type="tns:TouristObjectCategories"/>
+      <xs:element name="attributes" type="tns:TouristObjectAttributes"/>
+      <xs:element minOccurs="0" name="binaryDocuments" type="tns:TouristObjectBinaryDocuments"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IdentifierTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="I1"/>
+      <xs:enumeration value="I2"/>
+      <xs:enumeration value="I3"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.pot.gov.pl/rit/integration/commonElements/RITException" elementFormDefault="qualified" targetNamespace="http://www.pot.gov.pl/rit/integration/commonElements/RITException" version="1.0">
+
+  <xs:element name="RITException" type="tns:RITException"/>
+
+  <xs:complexType name="RITException">
+    <xs:sequence>
+      <xs:element name="exceptionUniqueId" type="xs:string"/>
+      <xs:element name="errorText" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.pot.gov.pl/rit/integration/commonElements/Metric" version="1.0">
+
+  <xs:complexType name="Metric">
+    <xs:sequence>
+      <xs:element name="distributionChannel" type="xs:string"/>
+      <xs:element name="username" type="xs:string"/>
+      <xs:element name="requestUniqueIdentifier" type="xs:string"/>
+      <xs:element name="requestDate" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.pot.gov.pl/rit/integration/MetadataOfRIT" xmlns:ns1="http://www.pot.gov.pl/rit/integration/commonElements/Metric" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.pot.gov.pl/rit/integration/MetadataOfRIT">
+  <xs:import namespace="http://www.pot.gov.pl/rit/integration/commonElements/Metric"/>
+  <xs:element name="MetadataRequest" type="tns:MetadataReq"/>
+  <xs:element name="MetadataResponse" type="tns:MetadataRes"/>
+  <xs:complexType name="MetadataRes">
+    <xs:sequence>
+      <xs:element name="lastModificationDate" type="xs:date"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ritCategory" nillable="true" type="tns:RitCategory"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ritAttribute" nillable="true" type="tns:RitAttribute"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ritDictionary" nillable="true" type="tns:RitDictionary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RitCategory">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attributeCodes" nillable="true" type="tns:AttributeCode"/>
+      <xs:element minOccurs="0" name="parentCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttributeCode">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attributeCode" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RitAttribute">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element name="typeValidator" type="xs:string"/>
+      <xs:element minOccurs="0" name="typeUI" type="xs:string"/>
+      <xs:element minOccurs="0" name="valRegexExpr" type="xs:string"/>
+      <xs:element minOccurs="0" name="maxLength" type="xs:string"/>
+      <xs:element minOccurs="0" name="dictionaryCode" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="complexAttribute" nillable="true" type="tns:AttributeCode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RitDictionary">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="value" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MetadataReq">
+    <xs:sequence>
+      <xs:element name="language" type="xs:string"/>
+      <xs:element name="metric" type="ns1:Metric"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DictionaryElement">
+    <xs:sequence>
+      <xs:element name="value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.pot.gov.pl/rit/integration/GetTouristObjectLanguages" xmlns:ns2="http://www.pot.gov.pl/rit/integration/CollectTouristObjects" xmlns:ns1="http://www.pot.gov.pl/rit/integration/commonElements/Metric" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.pot.gov.pl/rit/integration/GetTouristObjectLanguages">
+  <xs:import namespace="http://www.pot.gov.pl/rit/integration/commonElements/Metric"/>
+  <xs:import namespace="http://www.pot.gov.pl/rit/integration/CollectTouristObjects"/>
+  <xs:element name="GetTouristObjectLanguagesRequest" type="tns:GetTouristObjectLanguagesReq"/>
+  <xs:element name="GetTouristObjectLanguagesResponse" type="tns:GetTouristObjectLanguagesRes"/>
+  <xs:complexType name="GetTouristObjectLanguagesReq">
+    <xs:sequence>
+      <xs:element name="metric" type="ns1:Metric"/>
+      <xs:element name="objectIdentifier" type="ns2:ObjectIdentifier"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetTouristObjectLanguagesRes">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="language" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.pot.gov.pl/rit/integration/CollectTouristObjects" xmlns:ns2="http://www.pot.gov.pl/rit/integration/commonElements/Metric" xmlns:ns1="http://www.pot.gov.pl/rit/integration/commonElements/TouristObject" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.pot.gov.pl/rit/integration/CollectTouristObjects">
+  <xs:import namespace="http://www.pot.gov.pl/rit/integration/commonElements/TouristObject"/>
+  <xs:import namespace="http://www.pot.gov.pl/rit/integration/commonElements/Metric"/>
+  <xs:element name="CollectTouristObjectRequest" type="tns:CollectTouristObjectReq"/>
+  <xs:element name="CollectTouristObjectResponse" type="tns:CollectTouristObjectRes"/>
+  <xs:complexType name="ObjectIdentifier">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="identifierRIT" nillable="true" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="identifierSZ" nillable="true" type="tns:IdentifierSZ"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentifierSZ">
+    <xs:sequence>
+      <xs:element name="identifierType" type="ns1:IdentifierTypeEnum"/>
+      <xs:element minOccurs="0" name="artificialIdentifier" type="xs:string"/>
+      <xs:element minOccurs="0" name="databaseTable" type="xs:string"/>
+      <xs:element minOccurs="0" name="concatenationOfField" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CollectTouristObjectReq">
+    <xs:sequence>
+      <xs:element name="metric" type="ns2:Metric"/>
+      <xs:element name="searchCondition">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="language" type="xs:string"/>
+            <xs:element minOccurs="0" name="allForDistributionChannel" type="xs:boolean"/>
+            <xs:element minOccurs="0" name="searchAttributeAnd" type="tns:SearchAttribute"/>
+            <xs:element minOccurs="0" name="searchCategoryAnd" type="tns:SearchCategory"/>
+            <xs:element minOccurs="0" name="objectIdentifier" type="tns:ObjectIdentifier"/>
+            <xs:element minOccurs="0" name="lastModifiedRange" type="tns:LastModifiedRange"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchAttribute">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attributeValue" nillable="true">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="attributeCode" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="valueToSearch" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchCategory">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="categoryCode" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LastModifiedRange">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dateFrom" type="xs:date"/>
+      <xs:element minOccurs="0" name="dateTo" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CollectTouristObjectRes">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="status" type="tns:ObjectStateEnum"/>
+      <xs:element minOccurs="0" name="info" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="touristObject" nillable="true" type="ns1:TouristObject"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ObjectStateEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="WARNING"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getLanguagesResponse">
+    <wsdl:part element="tns:GetTouristObjectLanguagesResponse" name="out">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getLanguages">
+    <wsdl:part element="tns:GetTouristObjectLanguagesRequest" name="in">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetTouristObjectLanguagesFault">
+    <wsdl:part element="ns1:RITException" name="GetTouristObjectLanguagesFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GetTouristObjectLanguages">
+    <wsdl:operation name="getLanguages">
+      <wsdl:input message="tns:getLanguages" name="getLanguages">
+    </wsdl:input>
+      <wsdl:output message="tns:getLanguagesResponse" name="getLanguagesResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:GetTouristObjectLanguagesFault" name="GetTouristObjectLanguagesFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetTouristObjectLanguagesSoapBinding" type="tns:GetTouristObjectLanguages">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getLanguages">
+      <soap:operation soapAction="http://www.pot.gov.pl/GetTouristObjectLanguages/getLanguages" style="document"/>
+      <wsdl:input name="getLanguages">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLanguagesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="GetTouristObjectLanguagesFault">
+        <soap:fault name="GetTouristObjectLanguagesFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetTouristObjectLanguages">
+    <wsdl:port binding="tns:GetTouristObjectLanguagesSoapBinding" name="GetTouristObjectLanguagesPort">
+      <soap:address location="http://192.168.31.17:8082/rit/integration/GetTouristObjectLanguages"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
