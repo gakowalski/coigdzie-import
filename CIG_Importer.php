@@ -40,11 +40,11 @@ class CIG_Importer {
     curl_close($ch);
   }
 
-  function get_xml() {
-    $filename = $this->get_filename();
+  function get_xml($date = null) {
+    $filename = $this->get_filename($date);
 
     if (file_exists($filename) === false || (date("Ymd") > date("Ymd", filemtime($filename)))) {
-      $this->import();
+      $this->import($date);
     }
 
     return file_get_contents($filename);
