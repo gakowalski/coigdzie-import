@@ -247,17 +247,19 @@ class CollectTouristObjects {
       //if ($happening->venue->venueAttributes->foodAndDrinkAvailable == '1') {
         // brak odpowiednika w RIT
       //}
+      if (isset($happening->organizer)) {
+        $attributes['A024'] = $happening->organizer->organizerName;
+        $attributes['A025'] = strtoupper($happening->organizer->organizerVoivodeship);
+        $attributes['A026'] = $happening->organizer->organizerDistrict;
+        $attributes['A027'] = $happening->organizer->organizerCommune;
+        $attributes['A028'] = $happening->organizer->organizerLocality;
+        $attributes['A030'] = $happening->organizer->organizerStreet;
+        $attributes['A031'] = $happening->organizer->organizerHouseNo;
+        $attributes['A033'] = $happening->organizer->organizerPostCode;
+        $attributes['A034'] = $happening->organizer->organizerTelephone;
+        $attributes['A039'] = $happening->organizer->organizerEmail;
+      }
 
-      $attributes['A024'] = $happening->organizer->organizerName;
-      $attributes['A025'] = strtoupper($happening->organizer->organizerVoivodeship);
-      $attributes['A026'] = $happening->organizer->organizerDistrict;
-      $attributes['A027'] = $happening->organizer->organizerCommune;
-      $attributes['A028'] = $happening->organizer->organizerLocality;
-      $attributes['A030'] = $happening->organizer->organizerStreet;
-      $attributes['A031'] = $happening->organizer->organizerHouseNo;
-      $attributes['A033'] = $happening->organizer->organizerPostCode;
-      $attributes['A034'] = $happening->organizer->organizerTelephone;
-      $attributes['A039'] = $happening->organizer->organizerEmail;
 
       foreach ($attributes as $code => $values) {
         $attribute = new \stdClass;
