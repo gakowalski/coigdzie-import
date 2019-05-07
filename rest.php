@@ -54,7 +54,7 @@ if (isset($_GET['ids'])) {
       $latest[] = strval($happening['happeningId']);
     }
 
-    $response['add'] = $latest;
+    $response['new'] = $latest;
   }
 
 }
