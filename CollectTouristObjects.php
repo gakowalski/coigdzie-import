@@ -216,6 +216,10 @@ class CollectTouristObjects {
         $touristObject->categories[] = $category;
       }
 
+      if (empty($restrictions['categories']) === false && empty(array_intersect(array_merge($codes, ['C005']), $restrictions['categories'])) === true) {
+        continue;
+      }
+
       $touristObject->attributes = array();
 
       $attributes = array();
