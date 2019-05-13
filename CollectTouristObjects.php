@@ -179,6 +179,9 @@ class CollectTouristObjects {
     $category_mappings = $this->get_category_mappings();
 
     foreach ($happenings as $happening) {
+      if ($happening['deleted'] == '1') {
+        continue;
+      }
       if (empty($restrictions['ids']) === false && in_array($happening['happeningId'], $restrictions['ids']) === false) {
         continue;
       }
