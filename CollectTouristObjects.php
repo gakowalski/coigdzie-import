@@ -238,7 +238,10 @@ class CollectTouristObjects {
       $attributes['A018'] = $happening->venue->venueGeom->lat . ',' . $happening->venue->venueGeom->lon;
 
       $attributes['A065'] = $happening->happeningUrl;
-      $attributes['A069'] = $happening->price;
+      
+      if ($happening->price != '-1') {
+        $attributes['A069'] = $happening->price;
+      }
 
       $attributes['A105'] = $happening->startDate;
       $attributes['A106'] = $happening->endDate;
