@@ -1,14 +1,16 @@
 <?php
 
-$response = array(
-  'new' => array(),
-  'unchanged' => array(),
-  'changed' => array(),
-  'deleted' => array(),
-);
+$response = array();
 
 if (isset($_GET['ids'])) {
   require 'CIG_Importer.php';
+
+  $response = array(
+    'new' => array(),
+    'unchanged' => array(),
+    'changed' => array(),
+    'deleted' => array(),
+  );
 
   $importer = new CIG_Importer();
   $happenings = new SimpleXMLElement($importer->get_xml());
@@ -50,11 +52,18 @@ if (isset($_GET['ids'])) {
     unset($response['ignore']);
   } else {
 
+    $deleted = [];
+
     foreach ($happenings as $happening) {
+      if ($happening['deleted'] == '1') {
+        $deleted[] = strval($happening['happeningId']);
+        continue;
+      }
       $latest[] = strval($happening['happeningId']);
     }
 
     $response['new'] = $latest;
+    $response['deleted'] = $deleted;
   }
 
 }
