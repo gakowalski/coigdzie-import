@@ -22,9 +22,10 @@ class CollectTouristObjects {
       'kultura jubileusz' => 'C025',
       'kultura kabaret' => 'C025',
       'kultura koncert' => 'C028',
-      'koncert on-line' => 'C028',
-      'rozrywka on-line' => 'C030',
-      'inne on-line' => 'C030',
+      'kultura on-line' => 'C025',  // imprezy kulturalne
+      'koncert on-line' => 'C028',  // koncerty
+      'rozrywka on-line' => 'C030', // inne wydarzenia
+      'inne on-line' => 'C030',     // inne wydarzenia
       'kultura konkurs' => 'C025',
       'kultura literatura' => 'C025',
       'kultura ludowa' => 'C024',
