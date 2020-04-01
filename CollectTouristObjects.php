@@ -23,6 +23,7 @@ class CollectTouristObjects {
       'kultura kabaret' => 'C025',
       'kultura koncert' => 'C028',
       'koncert on-line' => 'C028',
+      'rozrywka on-line' => 'C030',
       'kultura konkurs' => 'C025',
       'kultura literatura' => 'C025',
       'kultura ludowa' => 'C024',
