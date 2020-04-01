@@ -27,6 +27,7 @@ class CollectTouristObjects {
       'rozrywka on-line' => 'C030', // inne wydarzenia
       'inne on-line' => 'C030',     // inne wydarzenia
       'teatr on-line' => 'C025',  // imprezy kulturalne
+      'gospodarka i nauka on-line' => 'C030', // inne wydarzenia
       'kultura konkurs' => 'C025',
       'kultura literatura' => 'C025',
       'kultura ludowa' => 'C024',
