@@ -22,6 +22,7 @@ class CollectTouristObjects {
       'kultura jubileusz' => 'C025',
       'kultura kabaret' => 'C025',
       'kultura koncert' => 'C028',
+      'koncert on-line' => 'C028',
       'kultura konkurs' => 'C025',
       'kultura literatura' => 'C025',
       'kultura ludowa' => 'C024',
@@ -238,7 +239,7 @@ class CollectTouristObjects {
       $attributes['A018'] = $happening->venue->venueGeom->lat . ',' . $happening->venue->venueGeom->lon;
 
       $attributes['A065'] = $happening->happeningUrl;
-      
+
       if ($happening->price != '-1') {
         $attributes['A069'] = $happening->price;
       }
