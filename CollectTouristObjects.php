@@ -31,7 +31,7 @@ class CollectTouristObjects {
       'sport on-line'  => 'C026', // imprezy sportowe
       'wystawa on-line' => 'C029', // wystawy
       'film on-line' => 'C025',  // imprezy kulturalne
-      'dzieci on-line'  => 'C025',  // imprezy kulturalne
+      'dla dzieci on-line'  => 'C025',  // imprezy kulturalne
       'kultura konkurs' => 'C025',
       'kultura literatura' => 'C025',
       'kultura ludowa' => 'C024',
